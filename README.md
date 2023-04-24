@@ -1,38 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Mobilicis
 
-## Getting Started
+## Project Description:
 
-First, run the development server:
+This is a Node.js and Express based backend application that provides RESTful APIs to fetch user data from MongoDB. The application uses mongoose to interact with MongoDB. The project also includes a Next frontend that consumes the APIs to display data in a tabular format.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## APIs:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+POST `/api/users/importdata` - API to import sample data from sample_data.json file to MongoDB.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+GET `/api/users/income-lt-5-bmw-merc` - API to fetch users whose income is less than $5 USD and who have a car of brand "BMW" or "Mercedes".
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+GET `/api/users/male-phone-price-gt-10000` - API to fetch male users whose phone price is greater than 10,000.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+GET `/api/users/last-name-M-quote-gt-15-email-in` - API to fetch users whose last name starts with "M" and has a quote character length greater than 15 and email includes his/her last name.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+GET `/api/users/bmw-merc-audi-email-no-digit` - API to fetch users who have a car of brand "BMW", "Mercedes" or "Audi" and whose email does not include any digit.
 
-## Learn More
+GET `/api/users/top-10-cities-highest-users-avg-income` - API to fetch the data of top 10 cities which have the highest number of users and their average income.
 
-To learn more about Next.js, take a look at the following resources:
+GET `/api/users/all-users` - API to fetch all users from MongoDB.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Node.js
+- Express.js
+- MongoDB
+- NextJS
 
-## Deploy on Vercel
+### Host URL Frontend: https://mobilis-client.vercel.app
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Host URL Backend: https://good-lime-pelican-kilt.cyclic.app
