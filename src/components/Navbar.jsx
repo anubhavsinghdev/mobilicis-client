@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import {
     incomeLt5BmwMerc,
     malePhonePriceGt10000,
@@ -8,11 +8,10 @@ import {
     allUsers,
     refetchData
 } from '../api/UserAPI';
-import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
-const Navbar = ({ data, setData, setLoading }) => {
+const Navbar = ({ data, setData, setLoading, otherTable, setOtherTable }) => {
     const options = [
         {
             option: 'Users which have income lower than $5 USD and have a car of brand "BMW" or "Mercedes"'
@@ -38,6 +37,7 @@ const Navbar = ({ data, setData, setLoading }) => {
 
     const handleInputChange = async (e) => {
         setSelected(e.option);
+        setOtherTable(false);
         setLoading(true);
         const index = options.findIndex(opt => opt.option == e.option);
         switch (index) {
@@ -49,8 +49,11 @@ const Navbar = ({ data, setData, setLoading }) => {
                 setData(await lastNameMQuoteGt15EmailIn()); break;
             case 3:
                 setData(await bmwMercAudiEmailNoDigit()); break;
-            case 4:
-                setData(await top10CitiesHighestUsersAvgIncome()); break;
+            case 4: {
+                setData(await top10CitiesHighestUsersAvgIncome());
+                setOtherTable(true);
+                break;
+            }
             default:
                 setData(await incomeLt5BmwMerc()); break;
         }
@@ -63,7 +66,7 @@ const Navbar = ({ data, setData, setLoading }) => {
     }
 
     return (
-        <>
+        <Fragment>
             <div className="flex flex-col items-center p-4">
                 <Listbox value={selected} onChange={handleInputChange}>
                     <div className="relative mt-1">
@@ -82,7 +85,7 @@ const Navbar = ({ data, setData, setLoading }) => {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-l shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-l shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 {options.map((option, index) => (
                                     <Listbox.Option
                                         key={index}
@@ -93,7 +96,7 @@ const Navbar = ({ data, setData, setLoading }) => {
                                         value={option}
                                     >
                                         {({ selected }) => (
-                                            <>
+                                            <Fragment>
                                                 <span
                                                     className={
                                                         `block truncate ${selected ? 'font-medium' : 'font-normal'}`
@@ -106,7 +109,7 @@ const Navbar = ({ data, setData, setLoading }) => {
                                                         <CheckIcon className="h-5 w-5" aria-hidden="true" />
                                                     </span>
                                                 ) : null}
-                                            </>
+                                            </Fragment>
                                         )}
                                     </Listbox.Option>
                                 ))}
@@ -120,7 +123,7 @@ const Navbar = ({ data, setData, setLoading }) => {
                 </div>
 
             </div>
-        </>
+        </Fragment>
     );
 }
 

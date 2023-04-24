@@ -25,3 +25,9 @@ export const userSchema = {
   quote: 'Quote',
   phone_price: 'Phone Price',
 };
+
+export const citySchema = {
+  _id: 'City',
+  count: 'Highest Users',
+  avgIncome: 'Average Income',
+};
