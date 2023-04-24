@@ -12,7 +12,6 @@ import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
-
 const Navbar = ({ data, setData, setLoading }) => {
     const options = [
         {
@@ -55,8 +54,7 @@ const Navbar = ({ data, setData, setLoading }) => {
             default:
                 setData(await incomeLt5BmwMerc()); break;
         }
-        if (data.length !== 0)
-            setLoading(false);
+        setLoading(false);
     }
 
     const handleRefetchData = async (e) => {
