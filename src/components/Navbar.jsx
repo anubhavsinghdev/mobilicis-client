@@ -13,7 +13,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 
-const Navbar = ({ setData }) => {
+const Navbar = ({ data, setData, setLoading }) => {
     const options = [
         {
             option: 'Users which have income lower than $5 USD and have a car of brand "BMW" or "Mercedes"'
@@ -21,17 +21,25 @@ const Navbar = ({ setData }) => {
         {
             option: 'Male Users which have phone price greater than 10,000.'
         },
-        { option: 'Users whose Last name starts with "M" and has a quote character length greater than 15 and email includes his/her last name.' },
-        { option: 'Users which have a car of brand "BMW", "Mercedes" or "Audi" and whose email does not include any digit.' },
-        { option: 'Data of top 10 cities which have the highest number of users and their average income' },
+        {
+            option: 'Users whose Last name starts with "M" and has a quote character length greater than 15 and email includes his/her last name.'
+        },
+        {
+            option: 'Users which have a car of brand "BMW", "Mercedes" or "Audi" and whose email does not include any digit.'
+        },
+        {
+            option: 'Data of top 10 cities which have the highest number of users and their average income'
+        },
     ]
     const [selected, setSelected] = useState(options[0].option);
     useEffect(() => {
         (async () => setData(await incomeLt5BmwMerc()))();
+        setLoading(false);
     }, [setData]);
 
     const handleInputChange = async (e) => {
         setSelected(e.option);
+        setLoading(true);
         const index = options.findIndex(opt => opt.option == e.option);
         switch (index) {
             case 0:
@@ -47,6 +55,8 @@ const Navbar = ({ setData }) => {
             default:
                 setData(await incomeLt5BmwMerc()); break;
         }
+        if (data.length !== 0)
+            setLoading(false);
     }
 
     const handleRefetchData = async (e) => {
